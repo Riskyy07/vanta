@@ -1,0 +1,56 @@
+{
+  "name": "vanta-end-to-end",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "migrate": "node scripts/migrate.mjs",
+    "ingest": "tsx scripts/ingest.mjs",
+    "worker": "tsx scripts/worker.mjs",
+    "doctor": "tsx scripts/doctor.mjs",
+    "e2e": "node scripts/e2e.mjs",
+    "quality": "node scripts/quality.mjs",
+    "signal:test": "node scripts/signal-v2-test.mjs",
+    "alerts:test": "node scripts/alerts-test.mjs",
+    "wallet:test": "node scripts/wallet-timeline-test.mjs",
+    "behavior:test": "node scripts/behavior-history-test.mjs",
+    "discovery:test": "node scripts/discovery-v3-test.mjs",
+    "intelligence:test": "node scripts/intelligence-test.mjs",
+    "intelligence:source-check": "node scripts/intelligence-source-check.mjs",
+    "preflight": "node scripts/preflight.mjs",
+    "live:check": "tsx scripts/live-check.mjs",
+    "live:ingest": "npm run migrate && npm run ingest",
+    "live:static-test": "node scripts/live-activation-static-test.mjs",
+    "unified:test": "node scripts/unified-dashboard-test.mjs",
+    "qa:final": "node scripts/final-qa.mjs",
+    "e2e:live": "node scripts/e2e-live.mjs",
+    "production:check": "node scripts/production-check.mjs",
+    "typecheck": "tsc --noEmit",
+    "validate:release": "node scripts/release-validation.mjs",
+    "production:ready": "npm run preflight && npm run production:check && npm run qa:final && npm run typecheck && npm run ui:check",
+    "public:smoke": "node scripts/public-smoke.mjs",
+    "data-integrity:test": "node scripts/data-integrity-test.mjs",
+    "ui:check": "node scripts/ui-source-check.mjs"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "dotenv": "^16.6.1",
+    "next": "^15.5.0",
+    "pg": "^8.16.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.0",
+    "@types/pg": "^8.23.1"
+  },
+  "engines": {
+    "node": ">=22 <23"
+  }
+}

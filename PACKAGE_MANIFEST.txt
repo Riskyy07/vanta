@@ -1,0 +1,48 @@
+VANTA SMART MONEY INTELLIGENCE — FINAL SOURCE FREEZE
+
+Product:
+- Premium VANTA landing page
+- Unified intelligence dashboard
+- Wallet Intelligence
+- Smart Money Discovery V3
+- Emerging Wallets
+- Asset Intelligence
+- Signal Intelligence + lifecycle
+- Alerts + watchlist loop
+- Wallet × Asset Relationship drilldown
+- Wallet behavior + evolution
+
+Data / backend:
+- Base Mainnet chain ID 8453
+- Blockscout ingestion
+- PostgreSQL schema + migrations
+- Incremental worker + advisory lock
+- Data quality / USD coverage controls
+- Signal history + behavior history
+- Retention pruning
+- Health + protected monitoring endpoint
+- Production Docker + Render blueprint
+
+Final QA pass:
+- UI / dead-link source checks: 161/161
+- Release validation: 44/44
+- Data integrity: 50/50
+- Final QA static: 43/43
+- Intelligence: 5/5
+- Intelligence source: 8/8
+- Unified Dashboard: 4/4
+- Discovery V3: 2/2
+- Signal V2: 2/2
+- Alerts: 4/4
+- Wallet Timeline: 4/4
+- Behavior History: 2/2
+- Live activation static: 14/14
+- MJS syntax: PASS
+
+Runtime-dependent gate:
+- npm install / production dependencies
+- npm run build
+- Real PostgreSQL
+- Real Blockscout API access
+- Real ingestion and blockchain → DB → UI E2E
+- Render deployment and public smoke test

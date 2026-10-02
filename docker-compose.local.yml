@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vanta
+      POSTGRES_USER: vanta
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_local}
+    ports:
+      - "5432:5432"
+    volumes:
+      - vanta_pgdata:/var/lib/postgresql/data
+
+volumes:
+  vanta_pgdata:
