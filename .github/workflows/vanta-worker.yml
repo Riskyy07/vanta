@@ -1,0 +1,48 @@
+name: VANTA On-chain Worker
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'
+
+concurrency:
+  group: vanta-onchain-worker
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_SSL: 'true'
+      BLOCKSCOUT_MODE: instance
+      BLOCKSCOUT_API_BASE_URL: https://base.blockscout.com/api/v2
+      BLOCKSCOUT_CHAIN_ID: '8453'
+      VANTA_CHAIN_SLUG: base
+      VANTA_CHAIN_NAME: Base Mainnet
+      VANTA_DISCOVERY_ENABLED: 'true'
+      VANTA_PRICE_ENRICHMENT: 'true'
+      VANTA_REQUIRE_LIVE_DATA: 'true'
+      VANTA_WORKER_ONCE: 'true'
+      VANTA_DISCOVERY_PAGES: '3'
+      VANTA_DISCOVERY_CANDIDATE_LIMIT: '40'
+      VANTA_DISCOVERY_PROMOTE_LIMIT: '8'
+      VANTA_TRACKED_WALLET_LIMIT: '80'
+      VANTA_MAX_WALLETS_PER_CYCLE: '20'
+      VANTA_MAX_PAGES_PER_WALLET: '25'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package.json
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Validate database secret
+        run: test -n "$DATABASE_URL" || (echo "DATABASE_URL GitHub secret is required" && exit 1)
+      - name: Apply idempotent migrations
+        run: npm run migrate
+      - name: Run one VANTA ingestion cycle
+        run: npm run worker

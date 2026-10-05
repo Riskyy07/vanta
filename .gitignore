@@ -3,6 +3,10 @@ node_modules/
 out/
 .env
 .env.local
-npm-debug.log*
+.env.*.local
 *.log
 .DS_Store
+coverage/
+.vscode/
+.netlify/
+tsconfig.tsbuildinfo

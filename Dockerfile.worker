@@ -4,4 +4,6 @@ COPY package*.json ./
 RUN npm install --no-audit --no-fund
 COPY . .
 ENV NODE_ENV=production
+RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 vanta && chown -R vanta:nodejs /app
+USER vanta
 CMD ["npm","run","worker"]
